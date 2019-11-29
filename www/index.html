@@ -1,29 +1,272 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
   <script src="components/loader.js"></script>
   <script src="lib/onsenui/js/onsenui.min.js"></script>
-
+  <script>
+    if('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log("Service Worker Registered"))
+        .catch(e => console.log(e));
+    }
+  </script>
+  <link rel="manifest" href="/manifest.json">
   <link rel="stylesheet" href="components/loader.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .blur {
+      -webkit-filter: blur(3px);
+      -moz-filter: blur(3px);
+      -o-filter: blur(3px);
+      -ms-filter: blur(3px);
+      filter: blur(3px);
+    }
+    .brightness {
+      -webkit-filter: brightness(5);
+      -moz-filter: brightness(5);
+      -o-filter: brightness(5);
+      -ms-filter: brightness(5);
+      filter: brightness(5);
+    }
+    .contrast {
+      -webkit-filter: contrast(8);
+      -moz-filter: contrast(8);
+      -o-filter: contrast(8);
+      -ms-filter: contrast(8);
+      filter: contrast(8);
+    }
+    .hue-rotate {
+      -webkit-filter: hue-rotate(90deg);
+      -moz-filter: hue-rotate(90deg);
+      -o-filter: hue-rotate(90deg);
+      -ms-filter: hue-rotate(90deg);
+      filter: hue-rotate(90deg);
+    }
+    .hue-rotate2 {
+      -webkit-filter: hue-rotate(180deg);
+      -moz-filter: hue-rotate(180deg);
+      -o-filter: hue-rotate(180deg);
+      -ms-filter: hue-rotate(180deg);
+      filter: hue-rotate(180deg);
+    }
+    .hue-rotate3 {
+      -webkit-filter: hue-rotate(270deg);
+      -moz-filter: hue-rotate(270deg);
+      -o-filter: hue-rotate(270deg);
+      -ms-filter: hue-rotate(270deg);
+      filter: hue-rotate(270deg);
+    }
+    .saturate {
+      -webkit-filter: saturate(10);
+      -moz-filter: saturate(10);
+      -o-filter: saturate(10);
+      -ms-filter: saturate(10);
+      filter: saturate(10);
+    }
+    .grayscale {
+      -webkit-filter: grayscale(1);
+      -moz-filter: grayscale(1);
+      -o-filter: grayscale(1);
+      -ms-filter: grayscale(1);
+      filter: grayscale(1);
+    }
+    .sepia {
+      -webkit-filter: sepia(1);
+      -moz-filter: sepia(1);
+      -o-filter: sepia(1);
+      -ms-filter: sepia(1);
+      filter: sepia(1);
+    }
+    .invert {
+      -webkit-filter: invert(1);
+      -moz-filter: invert(1);
+      -o-filter: invert(1);
+      -ms-filter: invert(1);
+      filter: invert(1);
+    }
+  </style>
+</head>
+
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Tab 1</div>
+    </ons-toolbar>
+
+    <ons-tabbar swipeable position="auto">
+      <ons-tab page="tab1.html" label="Tab 1" icon="ion-home, material:md-home" badge="7" active>
+      </ons-tab>
+      <ons-tab page="tab2.html" label="Tab 2" icon="md-settings" active-icon="md-face">
+      </ons-tab>
+    </ons-tabbar>
+
+  </ons-page>
+
+  <template id="tab1.html">
+    <ons-page id="Accelerometer">
+      <p style="text-align: center;">
+        Accelerometer sensor values combined with onsen sliders.
+      </p>
+      <ons-button style="text-align:center;" onclick="showTemplateDialog()">Show Dialog Example</ons-button>
+      <ons-row>
+        <ons-col width="40px" style="text-align: center; line-height: 31px;">
+          <ons-icon icon="md-volume-down"></ons-icon>
+        </ons-col>
+        <ons-col>
+          <ons-range style="width: 100%;" value="0" id="range1" min="-10" max="10"></ons-range>
+        </ons-col>
+        <ons-col width="40px" style="text-align: center; line-height: 31px;">
+          <ons-icon icon="md-volume-up"></ons-icon>
+        </ons-col>
+      </ons-row>
+      <ons-row style="margin-top: 20px;">
+        <ons-col width="40px" style="text-align: center; line-height: 31px;">
+          <ons-icon icon="md-brightness-low"></ons-icon>
+        </ons-col>
+        <ons-col>
+          <ons-range style="width: 100%;" value="0" id="range2" min="-10" max="10"></ons-range>
+        </ons-col>
+        <ons-col width="40px" style="text-align: center; line-height: 31px;">
+          <ons-icon icon="md-brightness-high"></ons-icon>
+        </ons-col>
+      </ons-row>
+      <ons-row style="margin-top: 20px;">
+        <ons-col width="40px" style="text-align: center; line-height: 31px;">
+          <ons-icon icon="md-thumb-down"></ons-icon>
+        </ons-col>
+        <ons-col>
+          <ons-range style="width: 100%;" value="0" id="range3" min="-10" max="10"></ons-range>
+        </ons-col>
+        <ons-col width="40px" style="text-align: center; line-height: 31px;">
+          <ons-icon icon="md-thumb-up"></ons-icon>
+        </ons-col>
+      </ons-row>
+      <div id="acceleration_along_X"></div>
+      <div id="acceleration_along_Y"></div>
+      <div id="acceleration_along_Z"></div>
+    </ons-page>
+  </template>
+
+  <template id="tab2.html">
+    <ons-page id="Tab2">
+      <p style="text-align: center;">
+        CSS styles combined with camera.
+      </p>
+      <p>
+        <ons-button id="cssfilters-apply" modifier="large">Apply CSS filter</ons-button>
+      </p>
+      <video id="video" width="100%" height="100%" autoplay></video>
+    </ons-page>
+  </template>
+
+  <template id="dialog.html">
+    <ons-dialog id="my-dialog">
+      <div style="text-align: center; padding: 10px;">
+        <p>
+          This is a simple dialog!
+        </p>
+
+        <p>
+          <ons-button onclick="hideDialog('my-dialog')">Close</ons-button>
+        </p>
+      </div>
+    </ons-dialog>
+  </template>
 
   <script>
-    ons.ready(function() {
+    ons.ready(function () {
       console.log("Onsen UI is ready!");
+      document.addEventListener('prechange', function (event) {
+        document.querySelector('ons-toolbar .center')
+          .innerHTML = event.tabItem.getAttribute('label');
+      });
+      document.getElementById("acceleration_along_X").innerHTML = "1";
+      document.getElementById("acceleration_along_Y").innerHTML = "2";
+      document.getElementById("acceleration_along_Z").innerHTML = "3";
+      let sensor = new Accelerometer();
+      sensor.start();
+      sensor.onreading = () => {
+        document.getElementById("range1").value = sensor.x;
+        document.getElementById("range2").value = sensor.y;
+        document.getElementById("range3").value = sensor.z;
+        document.getElementById("acceleration_along_X").innerHTML = sensor.x;
+        document.getElementById("acceleration_along_Y").innerHTML = sensor.y;
+        document.getElementById("acceleration_along_Z").innerHTML = sensor.z;
+      }
+      //sensor.onerror = event => console.log(event.error.name, event.error.message);
+      sensor.onerror = event => document.getElementById("acceleration_along_Z").innerHTML = event.error.name;
+      //// Grab elements, create settings, etc.
+      var video = document.getElementById('video');
+      // Get access to the camera!
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+        navigator.mediaDevices.getUserMedia({
+          video: true
+        }).then(function (stream) {
+          //video.src = window.URL.createObjectURL(stream);
+          video.srcObject = stream;
+          video.play();
+        });
+      }
+      const captureVideoButton =
+        document.querySelector('#cssfilters .capture-button');
+      const cssFiltersButton =
+        document.querySelector('#cssfilters-apply');
+      //const video =
+      //document.querySelector('#cssfilters video');
+      let filterIndex = 0;
+      const filters = [
+        'grayscale',
+        'sepia',
+        'blur',
+        'brightness',
+        'contrast',
+        'hue-rotate',
+        'hue-rotate2',
+        'hue-rotate3',
+        'saturate',
+        'invert',
+        ''
+      ];
+      cssFiltersButton.onclick = video.onclick = function () {
+        video.className = filters[filterIndex++ % filters.length];
+      };
+      function handleSuccess(stream) {
+        video.srcObject = stream;
+      }
     });
-
+    var showTemplateDialog = function () {
+      var dialog = document.getElementById('my-dialog');
+      if (dialog) {
+        dialog.show();
+      } else {
+        ons.createElement('dialog.html', {
+            append: true
+          })
+          .then(function (dialog) {
+            dialog.show();
+          });
+      }
+    };
+    var hideDialog = function (id) {
+      document
+        .getElementById(id)
+        .hide();
+    };
     if (ons.platform.isIPhoneX()) {
       document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
       document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
     }
   </script>
-</head>
-<body>
-  This is a template for Onsen UI app.
+
 </body>
+
 </html>
